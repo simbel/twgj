@@ -8,9 +8,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-/**
- * Created by pramodh on 3/14/14.
- */
+
 public class MicroBlogNode {
     private final String identifier;
     private final Lock lock = new ReentrantLock();
