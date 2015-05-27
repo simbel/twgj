@@ -40,6 +40,9 @@ public class Veterinarian extends Thread {
         } catch (InterruptedException e) {
             shutdown = true;
         }
+    }
+
+    public static void main(String[] args) {
 
     }
 }
