@@ -11,7 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Main {
     public static void main(String[] args) {
-        testForkJoin();
+        testMicroBlogTimeline();
     }
 
     public static void testForkJoin(){
@@ -192,6 +192,9 @@ public class Main {
 
     }
 
+    /**
+     * Used to demonstrate when change the CopyOnWriteArrayList, it wll be copied and create a new list.
+     */
     public static void testMicroBlogTimeline(){
         final CountDownLatch firstLatch = new CountDownLatch(1);
         final CountDownLatch secondLatch = new CountDownLatch(1);
