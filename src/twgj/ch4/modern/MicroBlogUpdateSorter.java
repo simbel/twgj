@@ -12,7 +12,7 @@ import java.util.concurrent.RecursiveAction;
  * Created by pramodh on 3/17/14.
  */
 public class MicroBlogUpdateSorter extends RecursiveAction {
-    private static final int SMALL_ENOUGH = 32;
+    private static final int SMALL_ENOUGH = 128;
     private final Update[] updates;
     private final int start, end;
     private final Update[] result;

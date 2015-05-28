@@ -11,15 +11,21 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 public class Main {
     public static void main(String[] args) {
-        testMicroBlogTimeline();
+        testForkJoin(args[0]);
     }
 
-    public static void testForkJoin(){
+    public static void testForkJoin(String count){
         List<Update> lu = new ArrayList<Update>();
         String text = "";
         final Update.Builder up = new Update.Builder();
         final Author author = new Author("Joel");
-        for (int i = 0; i < 256; i++) {
+        final int NUM;
+        if (count != null) {
+            NUM = Integer.valueOf(count);
+        } else {
+            NUM = 256;
+        }
+        for (int i = 0; i < NUM; i++) {
             text += "X";
             long now = System.currentTimeMillis();
             lu.add(up.author(author).updateText(text).createTime(now).build());
@@ -29,12 +35,17 @@ public class Main {
         }
         Collections.shuffle(lu);
         Update[] updates = lu.toArray(new Update[0]);
+
+        long startTime = System.currentTimeMillis();
         MicroBlogUpdateSorter sorter = new MicroBlogUpdateSorter(updates);
         ForkJoinPool pool = new ForkJoinPool(4);
         pool.invoke(sorter);
         for(Update u: sorter.getResult()){
-            System.out.println(u);
+            //System.out.println(u);
         }
+        long endTime = System.currentTimeMillis();
+
+        System.out.println("Total Time: " + (endTime - startTime) + "ms to sort a list with " + NUM + " elements.");
     }
 
     public static void testCallable(){
@@ -96,7 +107,8 @@ public class Main {
     public static void testMicroBlogThread(){
         final Update.Builder up = new Update.Builder();
         final BlockingQueue<Update> lbq = new LinkedBlockingQueue<>(100);
-        MicroBlogExample t1 = new MicroBlogExample(lbq, 10) {
+        // notice the second pass in parameter, the output thread pauses much less time than consume thread
+        MicroBlogExample t1 = new MicroBlogExample(lbq, 100) {
             @Override
             public void doAction() {
                 text = text + "X";
@@ -108,7 +120,7 @@ public class Main {
 
                 }
                 if(!handed){
-                    System.out.println("Unable hand off to queue due to timeout");
+                    System.out.println("Unable hand off to queue due to  ");
                 }
 
             }
@@ -132,7 +144,7 @@ public class Main {
     public static void testMicroBlogThread1(){
         final Update.Builder up = new Update.Builder();
         final TransferQueue<Update> lbq = new LinkedTransferQueue<Update>();
-        MicroBlogExampleThread t1 = new MicroBlogExampleThread(lbq, 10) {
+        MicroBlogExampleThread t1 = new MicroBlogExampleThread(lbq, 100) {
             @Override
             public void doAction() {
                 text = text + "X";
