@@ -6,10 +6,12 @@ package twgj.ch4;
 public class Update {
     private final Author author;
     private final String updateText;
+    final long timestamp;
 
     private Update(Builder b_) {
         author = b_.author;
         updateText = b_.updateText;
+        timestamp = System.currentTimeMillis();
     }
 
     public static class Builder implements ObjBuilder<Update> {

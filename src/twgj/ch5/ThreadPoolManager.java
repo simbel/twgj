@@ -8,8 +8,8 @@ import java.util.concurrent.*;
 
 public class ThreadPoolManager {
 
-  private final ScheduledExecutorService stpe = Executors
-      .newScheduledThreadPool(2);
+  private final ScheduledExecutorService stpe = Executors.newScheduledThreadPool(2);
+
   private final BlockingQueue<WorkUnit<String>> lbq;
 
   public ThreadPoolManager(BlockingQueue<WorkUnit<String>> lbq_) {

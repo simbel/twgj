@@ -12,7 +12,7 @@ public class ThreadPoolMain {
 
   private ThreadPoolManager manager;
 
-  private void cancelUsingReflection(ScheduledFuture<?> hndl) {
+  private void cancelsingReflection(ScheduledFuture<?> hndl) {
     Method meth = manager.makeReflective();
 
     try {

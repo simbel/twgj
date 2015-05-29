@@ -25,7 +25,7 @@
   </target>
 
   <target name="run" depends="jar">
-    <java classname="twgj.ch5.MethodHandleIntro" fork="true">
+    <java classname="twgj.ch5.ThreadPoolMain" fork="true">
       <classpath>
         <path refid="libs.path"/>
         <path location="build/jar/TWGJ.jar"/>
